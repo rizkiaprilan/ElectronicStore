@@ -86,9 +86,9 @@ public class Main extends JFrame implements ActionListener, ItemListener {
 			e.printStackTrace();
 		}
 
-		tableData = new JTable(tableModel) {
+		tableData = new JTable(tableModel) {   //buat tablenya jadi ga bisa edit
 			@Override
-			public boolean isCellEditable(int row, int column) {
+			public boolean isCellEditable(int row, int column) { 
 				return false;
 			}
 		};
@@ -96,6 +96,7 @@ public class Main extends JFrame implements ActionListener, ItemListener {
 		tableData.setFillsViewportHeight(true);
 		scrollPane = new JScrollPane(tableData);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
 	}
 
@@ -133,8 +134,9 @@ public class Main extends JFrame implements ActionListener, ItemListener {
 				String PurchaseDate = sdf.format(new Date());
 				new Connect().insertTransaction(comboProductName.getSelectedIndex(), Integer.parseInt(textQuantity.getText()), PurchaseDate);
 				JOptionPane.showMessageDialog(this, "Input Data Successfully");
+			    this.dispose();  //frame bakal di close
+			    new Main();		 //frame baru akan muncul dengan updatan baru
 			}
-
 		}
 	}
 

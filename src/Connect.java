@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.sun.net.httpserver.Authenticator.Result;
-
 public class Connect {
 	Connection con;
 	Statement st;
@@ -26,7 +24,7 @@ public class Connect {
 
 	public ResultSet ListOfProduct() {
 		try {
-			rs = st.executeQuery("SELECT ProductName FROM products Order BY ProductName");
+			rs = st.executeQuery("SELECT ProductName FROM products");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,12 +79,11 @@ public class Connect {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
 		 
-		String insert = String.format("INSERT INTO purchase VALUES ('%d','%d','%s')", productid,qty,date);
+		String insert = String.format("INSERT INTO purchase(ProductID,Qty,PurchaseDate) VALUES ('%d','%d','%s')", productid,qty,date);
 		String updateQty = String.format("UPDATE products SET Stock = '%d' WHERE ProductId = '%d'",finalStock,productid);
 		try {
-			st.executeUpdate(insert);
+			st.execute(insert);
 			st.executeUpdate(updateQty);
 			
 		} catch (SQLException e) {
